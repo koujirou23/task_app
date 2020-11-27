@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :set_task, only: [:edit, :update, :destroy, :toggle]
 
   def index
     @tasks = Task.all
@@ -33,6 +33,12 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to root_path
+  end
+
+  def toggle
+    head :no_content
+    @task.done = !@task.done
+    @task.save
   end
 
   private
